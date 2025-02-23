@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">  
+        <meta http-equiv="X-UA-COMPATIBLE" content="IE=edge">
+        <meta name="viwport" content="whidth-divice-width, initial-scale-1.0">
+        <title>Login</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+<body>
+
+    <div class="formulario">
+        <h1>Inicio de sesion</h1>
+        <form method="post">
+            <div  class="username">
+               <input type="text" required>
+               <label> Nombre de usuario </label>   
+            </div>
+            <div class="contraseña">
+                <input type="Password" required>
+             <label> Contraseña   </label>    
+            </div>
+       
+            <input type="submit" value="Iniciar">
+
+        </form>
+    </div>
+</body>
+</html>
