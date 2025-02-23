@@ -1,29 +1,73 @@
+<!-- Elias aquí está la documentación de como jala este código de manera lo más sencilla posible --> 
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8">  
-        <meta http-equiv="X-UA-COMPATIBLE" content="IE=edge">
-        <meta name="viwport" content="whidth-divice-width, initial-scale-1.0">
-        <title>Login</title>
-        <link rel="stylesheet" href="style.css">
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
 <body>
 
     <div class="formulario">
-        <h1>Inicio de sesion</h1>
-        <form method="post">
-            <div  class="username">
-               <input type="text" required>
-               <label> Nombre de usuario </label>   
+        <h1>Inicio de sesión</h1>
+        <form action="login" method="post" id="loginForm">
+            <div class="usuario">
+                <input type="text" id="usuario" name="usuario" required>
+                <label for="usuario">Nombre de usuario</label>
             </div>
-            <div class="contraseña">
-                <input type="Password" required>
-             <label> Contraseña   </label>    
+            <div class="contrasena">
+                <input type="password" id="clave" name="contrasena" required>
+                <label for="clave">Contraseña</label>
             </div>
-       
-            <input type="submit" value="Iniciar">
 
+            <input type="submit" value="Iniciar">
+            <div id="mensaje_de_error"></div>
         </form>
     </div>
+
+    <script>
+        let intentos = 0; // Aquí creamos una variable para contar cuántos intentos de inicio de sesión ha hecho el usuario, porque haremos validación y si supera el límite de 3 intentos se bloqueará todo.
+
+        document.getElementById('loginForm').onsubmit = function(event) // Cuando el usuario presiona el botón, la función se ejecuta para que haga tooodo lo que se le dijo al programa
+        {
+            const usuario = document.getElementById('usuario').value; // Obtenemos el valor de la cajita de usuario.
+            const contrasena = document.getElementById('clave').value; // Obtenemos el valor de la cajita de contraseña.
+            if (usuario === "" || contrasena === "") // Si el usuario o la contraseña están vacíos, los manda a volar para que no haya problemas...
+            { 
+                alert("Usuario y contraseña son obligatorios."); // Aquí se mostrará un un mensaje de error, para que pongan atención y sepan en que la andan regando.
+                event.preventDefault(); // Evitamos que el formulario se recargue por asi decirlo, osea recargar la página literalmente hablando.
+                return;
+            }
+
+            if (usuario === "alumno" && contrasena === "dasc") // Si el usuario y la contraseña son correctos (y ANTES de equivocarse 3 veces), pues ya deja al usuario pasar a la siguiente página
+            { 
+                alert("Inicio de sesión exitoso"); // Mostramos un mensaje que se logró acceder, para que el usuario no ande con la duda
+                window.location.href = "https://www.youtube.com"; // Redirigimos al usuario a YouTube por ejemplo, aqui realmente sería lo del servidor pero todavía no se ha creado
+                const datos = { // Creamos una constante llamada datos, que almacenara en forma de objeto de javascript los datos de usuario y contraseña, porque nos interesa trabajar con servidor por lo que ocupamos juntar esos datos
+                    usuario: usuario,
+                    contrasena: contrasena
+                };
+                const datosJson = JSON.stringify(datos); //Creamos una variable llamada datosJson y se convertirá a una cadena de texto JSON, porque lo requerimos.
+                console.log(datosJson);
+            } else // Si el usuario o la contraseña son incorrectos, nos manda para esta parte...
+            { 
+                intentos++; // Sumamos 1 al contador de intentos. se irá incrementando conforme se vayan equivocando.
+                if (intentos >= 4) // Si el usuario ha hecho 4 o más intentos, aqui se especifica que le pasará al login
+                { 
+                    alert("Has alcanzado el número máximo de intentos. Debido a eso el formulario se bloqueará."); // Mostramos un mensaje de error, con el fin de brindar más seguridad
+                    document.getElementById('usuario').disabled = true; // Desactivamos el campo de usuario, por lo que ya no se podrá usar
+                    document.getElementById('clave').disabled = true; // Desactivamos el campo de contraseña, por lo que ya no se podrá usar
+                    document.querySelector('input[type="submit"]').disabled = true; // Desactivamos el botón "Iniciar", por lo que ya no se podrá usar
+                    event.preventDefault(); // Evitamos que el formulario se envíe, porque no tiene caso sino logró acceder
+                } else { // Si el usuario ha hecho menos de 4 intentos, entra en esta última validación
+                    alert("Usuario y/o contraseña incorrectas. Intento " + intentos + " de 3."); // Mostramos un mensaje de error notificando los intentos erróneos
+                    event.preventDefault(); // Evitamos que se recargue la página y se envíen los datos.
+                }
+            }
+        };
+    </script>
 </body>
 </html>
