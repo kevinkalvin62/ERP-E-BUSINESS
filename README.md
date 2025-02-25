@@ -1,2 +1,2 @@
 
-[e business.pdf](https://github.com/user-attachments/files/18935785/e.business.pdf)
+Aqui no van documentos pdf ni word, solo texto descriptivo del proyecto
