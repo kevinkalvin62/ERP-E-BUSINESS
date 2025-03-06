@@ -6,6 +6,7 @@ import jakarta.persistence.Column;
 @Entity
 public class Usuarios {
     @Id
+    
     @Column(name = "id_usuario", nullable = false)
     private String idUsuario; // No incremental, se le asigna un ID al registrarlo
     
@@ -50,6 +51,11 @@ public class Usuarios {
 
     public void setPermisos(String permisos) {
         this.permisos = permisos;
+    }
+
+    public Usuarios get() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'get'");
     } 
 
 }
