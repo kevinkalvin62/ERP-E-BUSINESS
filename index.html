@@ -51,78 +51,55 @@
         </div>
     </div>
 
-
-
-
     <!---Logica del login-->
     <script>
-        let intentos = 0; // Aquí creamos una variable para contar cuántos intentos de inicio de sesión ha hecho el usuario, porque haremos validación y si supera el límite de 3 intentos se bloqueará todo.
+                const MensajeError = document.getElementById('mistake').value;
+                const enviar_registros_backend = async (datos) => {
+                    try {
+                        const response = await fetch('http://URL_SERVER:PORT/login', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(datos)
+                    });
 
-        document.getElementById('loginForm').onsubmit = function (event) // Cuando el usuario presiona el botón, la función se ejecuta para que haga tooodo lo que se le dijo al programa
-        {
-            const usuario = document.getElementById('user_name').value; // Obtenemos el valor de la cajita de usuario.
-            const contrasena = document.getElementById('password_user').value; // Obtenemos el valor de la cajita de contraseña.
-
-            usuario.oninvalid = function (event) {
-                event.target.setCustomValidity('Por favor, ingrese su usuario.');
-            }
-            contrasena.oninvalid = function (event){
-                event.target.setCustomValidity('Por favor, ingrese la contraseña.');
-            }
-            usuario.oninput = function (event) {
-                event.target.setCustomValidity('');
-            }
-            /*if (usuario === "" || contrasena === "") // Si el usuario o la contraseña están vacíos, los manda a volar para que no haya problemas...
-            {
-                MensajeSuperior("Usuario y contraseña son obligatorios.", "warning"); // Aquí se mostrará un un mensaje de error, para que pongan atención y sepan en que la andan regando.
-                event.preventDefault(); // Evitamos que el formulario se recargue por asi decirlo, osea recargar la página literalmente hablando.
-                return;
-            }*/
-
-            if (usuario === "alumno" && contrasena === "dasc") // Si el usuario y la contraseña son correctos (y ANTES de equivocarse 3 veces), pues ya deja al usuario pasar a la siguiente página
-            {
-                
-                MensajeSuperior("Iniciando sesion. . .", "success"); // Mostramos un mensaje que se logró acceder, para que el usuario no ande con la duda
-                //window.location.href = "https://github.com"; // Redirigimos al usuario a YouTube por ejemplo, aqui realmente sería lo del servidor pero todavía no se ha creado
-                console.dir(usuario, contrasena)
-                const datos = { // Creamos una constante llamada datos, que almacenara en forma de objeto de javascript los datos de usuario y contraseña, porque nos interesa trabajar con servidor por lo que ocupamos juntar esos datos
-                    usuario: usuario,
-                    contrasena: contrasena
-                };
-                const datosJson = JSON.stringify(datos); //Creamos una variable llamada datosJson y se convertirá a una cadena de texto JSON, porque lo requerimos.
-                console.log(datosJson);
-            } else // Si el usuario o la contraseña son incorrectos, nos manda para esta parte...
-            {
-                intentos = 0; // Sumamos 1 al contador de intentos. se irá incrementando conforme se vayan equivocando.
-                if (intentos >= 4) // Si el usuario ha hecho 4 o más intentos, aqui se especifica que le pasará al login
-                {
-                    MensajeSuperior("Has alcanzado el número máximo de intentos. Debido a eso el formulario se bloqueará.", "warning"); // Mostramos un mensaje de error, con el fin de brindar más seguridad
-                    document.getElementById('usuario').disabled = true; // Desactivamos el campo de usuario, por lo que ya no se podrá usar
-                    document.getElementById('clave').disabled = true; // Desactivamos el campo de contraseña, por lo que ya no se podrá usar
-                    document.querySelector('input[type="submit"]').disabled = true; // Desactivamos el botón "Iniciar", por lo que ya no se podrá usar
-                    event.preventDefault(); // Evitamos que el formulario se envíe, porque no tiene caso sino logró acceder
-                } else { // Si el usuario ha hecho menos de 4 intentos, entra en esta última validación
-                    MensajeSuperior("Usuario y/o contraseña incorrectas.", "error"); // Mostramos un mensaje de error notificando los intentos erróneos
-                    event.preventDefault(); // Evitamos que se recargue la página y se envíen los datos.
+                if(response.ok){
+                    const message = await response.text();
+                    MensajeSuperior(message,"success");
+                    MensajeError('Los datos del usuario son:(user:${datos.usuario} password: ${datos.password})');
+                } else {
+                    var errorMessage = await response.text();
+                    MensajeSuperior(errorMessage,"error");
+                    MensajeError('Los datos del usuario son:(user:${datos.usuario} password: ${datos.password})');
                 }
+            } catch (error) {
+                MensajeSuperior("Error de la comunicación con el servidor."+error,"error");
             }
         };
 
+        document.getElementById('loginform').onsubmit = async function (event) {
+            event.preventDefault(); // Evitar el envío del formulario por defecto
 
-        ///Parametros para la posicion del dialogo de mensajes.
-        ///En espera para habilitar las request del backend y darle formatos
-        function MensajeSuperior(mensaje, accion) {
-            Swal.fire({
-                position: 'center',
-                icon: accion,
-                title: mensaje,
-                showConfirmButton: false,
-                customClass: {
-                    popup: 'estiloPop'
-                },
-                timer: 3000
-            });
-        }
+            const username = document.getElementById('user_name').value;
+            const userpassword = document.getElementById('password_user').value;
+
+            if(username === "" || userpassword === "") {
+                MensajeSuperior("Usuario y contraseña son obligatorios","warning");
+                return;
+            }
+
+            constdatos = {
+                user: username,
+                password: userpassword
+            };
+
+            await enviar_registros_backend(datos);
+        };
+
+        // Parámetros para la posición del diálogo de mensajes.
+        // En espera para habilitar las request del backend y darle los formatos correspondientes
+        function MensajeSuperior (mensaje,accion) {}
 
         /*Parametros para el mensaje estilo pop
         'success', 'error', 'warning', 'info',
@@ -134,5 +111,4 @@
         crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
-
 </html>
