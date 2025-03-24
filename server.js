@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 
 /*AQUI VAN LOS DETALLES DE SUS MAQUINAS LOCALES,NO MODIFICAR NADA*/
 const db = mysql.createConnection({
-  host: '127.0.0.1',
+  host: '192.168.18.9',
   user: 'node_user_erp',
   password: 'Zapatitoblanco123',
   database: 'ERPBUSINESS',
@@ -61,7 +61,7 @@ app.post('/login', (req, res) => {
     if (err) return res.status(500).json({ message: 'Database error' });
 
     console.log(result);
-    
+
     if (result.length === 0 || result[0].password !== password) {
       return res.status(401).json({ message: 'Invalid credentials' });
     }
