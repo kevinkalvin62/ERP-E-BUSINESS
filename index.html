@@ -158,7 +158,7 @@
   </div>
 
   <!-- Panel de estudiantes -->
-  <div id="student-content" class="content-section">
+  <div id="MOSTRADOR-content" class="content-section">
     <button class="logout-button" onclick="handleLogout()">Cerrar sesion</button>
     <h2>Panel de MOSTRADOR</h2>
     <div class="nav-tabs">
@@ -235,14 +235,14 @@
 
   </div>
 
-  <button onclick="setBackendIP()">REGISTER IP</button>
+  <button onclick="setBackendIPS()">REGISTER IP</button>
 </body>
 
   <script>
 
     // Roles
     const ROLES = {
-      STUDENT: 1,
+      MOSTRADOR: 1,
       PROFESSOR: 2,
       ADMIN_STAFF: 3,
       SUPER_ADMIN: 99
@@ -366,8 +366,8 @@ document.getElementById('login-form').addEventListener('submit', async (e) => {
         case ROLES.PROFESSOR:
           document.getElementById('professor-content').style.display = 'block';
           break;
-        case ROLES.STUDENT:
-          document.getElementById('student-content').style.display = 'block';
+        case ROLES.MOSTRADOR:
+          document.getElementById('MOSTRADOR-content').style.display = 'block';
           break;
         case ROLES.ADMIN_STAFF:
           document.getElementById('admin-staff-content').style.display = 'block';
@@ -406,7 +406,7 @@ document.getElementById('login-form').addEventListener('submit', async (e) => {
     /////////////////       BUSQUEDA OBJETOS       ////////////////////////////////////////////
     async function loadItems() {
       const token = localStorage.getItem("authToken");
-      const response = await fetch("http://${backendIP}:3000/student/buscar-objetos/", { headers: { "Authorization": `Bearer ${token}` } });
+      const response = await fetch("http://${backendIP}:3000/MOSTRADOR/buscar-objetos/", { headers: { "Authorization": `Bearer ${token}` } });
       console.log("Token:", localStorage.getItem("authToken"));
 
       if (!response.ok) {
@@ -442,7 +442,7 @@ function submitSale() {
     return;
   }
 
-  fetch("http://${backendIP}:3000/student/registro-venta/", {
+  fetch("http://${backendIP}:3000/MOSTRADOR/registro-venta/", {
     method: "POST",
     headers: { 
       "Authorization": `Bearer ${token}`,
