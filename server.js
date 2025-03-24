@@ -19,7 +19,7 @@ const db = mysql.createConnection({
   database: 'ERPBUSINESS',
 });
   
-
+//asegurandome que los cambios si sirven y no solo es codigo al azar asi alav
 
 
 
