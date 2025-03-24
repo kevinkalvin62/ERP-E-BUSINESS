@@ -389,7 +389,7 @@ document.getElementById('login-form').addEventListener('submit', async (e) => {
     /////////////////       BUSQUEDA OBJETOS       ////////////////////////////////////////////
     async function loadItems() {
       const token = localStorage.getItem("authToken");
-      const response = await fetch("http://192.168.18.4:3000/student/buscar-objetos/", { headers: { "Authorization": `Bearer ${token}` } });
+      const response = await fetch("http://${backendIP}:3000/student/buscar-objetos/", { headers: { "Authorization": `Bearer ${token}` } });
       console.log("Token:", localStorage.getItem("authToken"));
 
       if (!response.ok) {
@@ -425,7 +425,7 @@ function submitSale() {
     return;
   }
 
-  fetch("http://192.168.18.4:3000/student/registro-venta/", {
+  fetch("http://${backendIP}:3000/student/registro-venta/", {
     method: "POST",
     headers: { 
       "Authorization": `Bearer ${token}`,
