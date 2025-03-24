@@ -16,7 +16,7 @@ const db = mysql.createConnection({
   host: '127.0.0.1',
   user: 'node_user',
   password: 'Zapatitoblanco123',
-  database: 'SCGEM',
+  database: 'ERPBUSINESS',
 });
 
 
