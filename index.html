@@ -299,6 +299,23 @@ function getBackendIP() {
   return backendIP;
 }
 
+
+function setBackendIP() {
+  let backendIP = localStorage.getItem('backendIP');
+
+ 
+    backendIP = prompt("Enter backend IP (e.g., 192.168.18.X):", "192.168.18.4");
+    if (backendIP) {
+      localStorage.setItem('backendIP', backendIP);
+    } else {
+      alert("Backend IP is required!");
+      return null;
+    }
+  
+  
+  return backendIP;
+}
+
 // Get the backend IP on page load
 const backendIP = getBackendIP();
 
