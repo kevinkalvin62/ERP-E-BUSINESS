@@ -60,6 +60,8 @@ app.post('/login', (req, res) => {
   db.query('SELECT USUARIOS.ID_USR,USUARIOS_DETAIL.NOMBRE,USUARIOS.ROLEE,USUARIOS.MATRICULA  FROM USUARIOS JOIN USUARIOS_DETAIL ON USUARIOS.ID_USR=USUARIOS_DETAIL.ID_USR WHERE USUARIOS.ID_USR = ?; ', [username], (err, result) => {
     if (err) return res.status(500).json({ message: 'Database error' });
 
+    console.log(result);
+    
     if (result.length === 0 || result[0].password !== password) {
       return res.status(401).json({ message: 'Invalid credentials' });
     }
