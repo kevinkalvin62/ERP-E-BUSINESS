@@ -1,5 +1,5 @@
 
-CREATE USER 'node_user'@'%' IDENTIFIED BY 'Zapatitoblaco123';
+CREATE USER 'node_user_erp'@'%' IDENTIFIED BY 'Zapatitoblaco123';
 GRANT ALL PRIVILEGES ON ERPBUSINESS TO 'node_user'@'%';
 FLUSH PRIVILEGES;
 
