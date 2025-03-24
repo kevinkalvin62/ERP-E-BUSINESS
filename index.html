@@ -240,6 +240,8 @@
 
   <script>
 
+    
+
     // Roles
     const ROLES = {
       MOSTRADOR: 1,
@@ -285,9 +287,9 @@
     // Function to prompt for the backend IP and store it
 
 function getBackendIP() {
-   backendIP = localStorage.getItem('backendIP');
+   let backendIP = localStorage.getItem('backendIP');
 
-  if (!backendIP) {
+  //if (!backendIP) {
     backendIP = prompt("Enter backend IP (e.g., 192.168.18.X):", "192.168.18.4");
     if (backendIP) {
       localStorage.setItem('backendIP', backendIP);
@@ -295,24 +297,7 @@ function getBackendIP() {
       alert("Backend IP is required!");
       return null;
     }
-  }
-  
-  return backendIP;
-}
-
-
-function setBackendIP() {
-   backendIP = localStorage.getItem('backendIP');
-
- 
-    backendIP = prompt("Enter backend IP (e.g., 192.168.18.X):", "192.168.18.4");
-    if (backendIP) {
-      localStorage.setItem('backendIP', backendIP);
-    } else {
-      alert("Backend IP is required!");
-      return null;
-    }
-  
+ // }
   
   return backendIP;
 }
