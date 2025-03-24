@@ -57,7 +57,7 @@ const checkRole = (roles) => {
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
 
-  db.query('SELECT *, ALUMNOS.matricula FROM USUARIOS JOIN ALUMNOS ON USUARIOS.id_user = ALUMNOS.matricula WHERE user_name = ?;', [username], (err, result) => {
+  db.query('SELECT USUARIOS.ID_USR,USUARIOS_DETAIL.NOMBRE,USUARIOS.ROLEE,USUARIOS.MATRICULA  FROM USUARIOS JOIN USUARIOS_DETAIL ON USUARIOS.ID_USR=USUARIOS_DETAIL.ID_USR WHERE USUARIOS.ID_USR = ?; ', [username], (err, result) => {
     if (err) return res.status(500).json({ message: 'Database error' });
 
     if (result.length === 0 || result[0].password !== password) {
