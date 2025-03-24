@@ -237,6 +237,7 @@
 </body>
 
   <script>
+
     // Roles
     const ROLES = {
       STUDENT: 1,
@@ -279,36 +280,57 @@
     }
 
     // Login hanlder
-    document.getElementById('login-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
+    // Function to prompt for the backend IP and store it
+function getBackendIP() {
+  let backendIP = localStorage.getItem('backendIP');
 
-      const username = document.getElementById('username').value;
-      const password = document.getElementById('password').value;
-      const errorMessage = document.getElementById('error-message');
-      ///Cambio solo las ip, no el puerto
-      try {
-        const response = await fetch('http://192.168.18.4:3000/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ username, password })
-        });
+  if (!backendIP) {
+    backendIP = prompt("Enter backend IP (e.g., 192.168.18.X):", "192.168.18.4");
+    if (backendIP) {
+      localStorage.setItem('backendIP', backendIP);
+    } else {
+      alert("Backend IP is required!");
+      return null;
+    }
+  }
+  
+  return backendIP;
+}
 
-        const data = await response.json();
+// Get the backend IP on page load
+const backendIP = getBackendIP();
 
-        if (response.ok) {
-          localStorage.setItem('authToken', data.token);
-          errorMessage.textContent = '';
-          showUserRole(data.user_role);
-        } else {
-          errorMessage.textContent = data.message || 'Login failed';
-        }
-      } catch (error) {
-        errorMessage.textContent = 'Connection error. Please try again.';
-        console.error('Login error:', error);
-      }
+// Attach event listener for login
+document.getElementById('login-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
 
+  if (!backendIP) return; // Stop if no IP is set
 
+  const username = document.getElementById('username').value;
+  const password = document.getElementById('password').value;
+  const errorMessage = document.getElementById('error-message');
+
+  try {
+    const response = await fetch(`http://${backendIP}:3000/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username, password })
     });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      localStorage.setItem('authToken', data.token);
+      errorMessage.textContent = '';
+      showUserRole(data.user_role);
+    } else {
+      errorMessage.textContent = data.message || 'Login failed';
+    }
+  } catch (error) {
+    errorMessage.textContent = 'Connection error. Please try again.';
+    console.error('Login error:', error);
+  }
+});
 
 
 
