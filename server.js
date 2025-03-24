@@ -64,6 +64,7 @@ app.post('/login', (req, res) => {
       return res.status(401).json({ message: 'Invalid credentials' });
     }
 
+    console.log("errores en la autenticacion");
     const user = result[0];
     const token = jwt.sign({
         user_id: user.id_user,
