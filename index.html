@@ -6,7 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Academic Management System</title>
   <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
   <style>
     body {
@@ -157,7 +158,45 @@
     <div id="error-message"></div>
   </div>
 
-  <!-- Panel de estudiantes -->
+  <div id="MOSTRADOR-content" class="content-section">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <button class="btn btn-primary d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu">
+        ☰
+      </button>
+      <div class="container">
+        <a class="navbar-brand" href="/Index">
+          <img src="https://intbarcode.com/wp-content/uploads/2023/04/ERP-generic.png" style=" height: 80px" />
+        </a>
+
+        <h2 style="margin-left:40px; margin-right:40px">Sistema de ERP-BUSINESS </h2>
+        <div id="navbarSupportedContent-4">
+          <ul class="nav navbar-nav ml-auto">
+            <li class="nav-item dropdown align-content-center">
+              <a class=" fas fa-user nav-link " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="dropdown-toggle text-right"></i><br />
+                <strong>USUARIO ACTUAL</strong>
+              </a>
+            </li>
+            <li>
+              <button class="logout-button" onclick="handleLogout()">Cerrar sesion</button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+  <div class="d-flex">
+    <nav class="bg-dark text-white p-3 vh-100 d-none d-md-block" style="width: 250px;">
+      <h4>ERPSYSTEM</h4>
+      <ul class="nav flex-column">
+        <li class="nav-tab active" onclick="switchTab('search-products', this)">BUSCAR PRODUCTOS</li>
+        <li class="nav-tab" onclick="switchTab('register-sale', this)">REGISTRAR VENTA</li>
+        <li class="nav-tab" onclick="switchTab('register-refund', this)">REGISTRAR DEVOLUCION</li>
+        <li class="nav-tab" onclick="switchTab('payments', this)">GENERAR CORTE DEL DIA</li>
+      </ul>
+    </nav>
+
+    <!-- Panel MOSTRADOR 
   <div id="MOSTRADOR-content" class="content-section">
     <button class="logout-button" onclick="handleLogout()">Cerrar sesion</button>
     <h2>Panel de MOSTRADOR</h2>
@@ -166,130 +205,132 @@
       <div class="nav-tab" onclick="switchTab('register-sale', this)">REGISTRAR VENTA</div>
       <div class="nav-tab" onclick="switchTab('register-refund', this)">REGISTRAR DEVOLUCION</div>
       <div class="nav-tab" onclick="switchTab('payments', this)">GENERAR CORTE DEL DIA</div>
-    </div>
+    </div>-->
 
-    <div id="search-products" class="tab-content active">
-      <h3>BUSCAR PRODUCTOS </h3>
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Marcath>
+    <div class="flex-grow-1 p-3">
+      <div id="search-products" class="tab-content active">
+        <h3>BUSCAR PRODUCTOS </h3>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Marca
+            </tr>
             <th>Precio</th>
             <th>Cantidad</th>
-          </tr>
-        </thead>
-        <tbody id="subjects-table">
-        </tbody>
-      </table>
-    </div>
+            </tr>
+          </thead>
+          <tbody id="subjects-table">
+          </tbody>
+        </table>
+      </div>
 
-    <div id="register-sale" class="tab-content">
-      <h3>VENTAS</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>Marca</th>
-            <th>Precio</th>
-            <th>Cantidad</th>
-          </tr>
-        </thead>
-        <tbody id="register-sale-table">
-        </tbody>
-      </table>
-    </div>
+      <div id="register-sale" class="tab-content">
+        <h3>VENTAS</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Marca</th>
+              <th>Precio</th>
+              <th>Cantidad</th>
+            </tr>
+          </thead>
+          <tbody id="register-sale-table">
+          </tbody>
+        </table>
+      </div>
 
-    <div id="register-refund" class="tab-content">
-      <h3>DEVOLUCION</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>Cantidad</th>
-            <th>Precio</th>
-            <th>Total</th>
-          </tr>
-        </thead>
-        <tbody id="register-refund-table">
-        </tbody>
-      </table>
-    </div>
+      <div id="register-refund" class="tab-content">
+        <h3>DEVOLUCION</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Cantidad</th>
+              <th>Precio</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody id="register-refund-table">
+          </tbody>
+        </table>
+      </div>
 
-    <div id="payments" class="tab-content">
-      <h3>CORTE DEL DIA</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>Precio</th>
-            <th>Cantidad</th>
-            <th>Total</th>
-          </tr>
-        </thead>
-        <tbody id="payments-table">
-        </tbody>
-      </table>
+      <div id="payments" class="tab-content">
+        <h3>CORTE DEL DIA</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Precio</th>
+              <th>Cantidad</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody id="payments-table">
+          </tbody>
+        </table>
+      </div>
     </div>
-
   </div>
 
   <button onclick="setBackendIP()">REGISTER IP</button>
 </body>
 
-  <script>
-
-    
-
-    // Roles
-    const ROLES = {
-      MOSTRADOR: 1,
-      PROFESSOR: 2,
-      ADMIN_STAFF: 3,
-      SUPER_ADMIN: 99
-    };
+<script>
 
 
-    // cambia paginas
-    function switchTab(tabId, element) {
-      // Remove active class from all tabs
-      document.querySelectorAll('.nav-tab').forEach(tab => { tab.classList.remove('active'); });
-      document.querySelectorAll('.tab-content').forEach(content => { content.classList.remove('active'); });
 
-      // establece clase activa a la pagina actual
-      element.classList.add('active');
-      document.getElementById(tabId).classList.add('active');
+  // Roles
+  const ROLES = {
+    MOSTRADOR: 1,
+    PROFESSOR: 2,
+    ADMIN_STAFF: 3,
+    SUPER_ADMIN: 99
+  };
 
-      if (tabId === 'search-products') {
-        loadItems();
-      }
-      if (tabId === 'register-sale') {
-        loadregistersale();
-      }
-      if (tabId === 'register-refund') {
-        loadKardez();
-      }
-      if (tabId === 'payments') {
-        loadPagos();
-      }
+
+  // cambia paginas
+  function switchTab(tabId, element) {
+    // Remove active class from all tabs
+    document.querySelectorAll('.nav-tab').forEach(tab => { tab.classList.remove('active'); });
+    document.querySelectorAll('.tab-content').forEach(content => { content.classList.remove('active'); });
+
+    // establece clase activa a la pagina actual
+    element.classList.add('active');
+    document.getElementById(tabId).classList.add('active');
+
+    if (tabId === 'search-products') {
+      loadItems();
     }
-
-    // Logout
-    function handleLogout() {
-      localStorage.removeItem('authToken');
-      showUserRole(null);
-      document.getElementById('username').value = '';
-      document.getElementById('password').value = '';
+    if (tabId === 'register-sale') {
+      loadregistersale();
     }
+    if (tabId === 'register-refund') {
+      loadKardez();
+    }
+    if (tabId === 'payments') {
+      loadPagos();
+    }
+  }
 
-    // Login hanlder
-    // Function to prompt for the backend IP and store it
+  // Logout
+  function handleLogout() {
+    localStorage.removeItem('authToken');
+    showUserRole(null);
+    document.getElementById('username').value = '';
+    document.getElementById('password').value = '';
+  }
 
-function getBackendIP() {
-   let backendIP = localStorage.getItem('backendIP');
+  // Login hanlder
+  // Function to prompt for the backend IP and store it
 
-  //if (!backendIP) {
+  function getBackendIP() {
+    let backendIP = localStorage.getItem('backendIP');
+
+    //if (!backendIP) {
     backendIP = prompt("Enter backend IP (e.g., 192.168.18.X):", "192.168.18.4");
     if (backendIP) {
       localStorage.setItem('backendIP', backendIP);
@@ -297,167 +338,169 @@ function getBackendIP() {
       alert("Backend IP is required!");
       return null;
     }
- // }
-  
-  return backendIP;
-}
+    // }
 
-// Get the backend IP on page load
-const backendIP = getBackendIP();
-
-// Attach event listener for login
-document.getElementById('login-form').addEventListener('submit', async (e) => {
-  e.preventDefault();
-
-  if (!backendIP) return; // Stop if no IP is set
-
-  
-  const username = document.getElementById('username').value;
-  const password = document.getElementById('password').value;
-  const errorMessage = document.getElementById('error-message');
-
-  try {
-    const response = await fetch('http://192.168.18.24:3000/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username, password })
-    });
-
-    console.log("antes de obtener el data");
-    const data = await response.json();
-
-    console.log("despues de obtener el data");
-    console.log("",data);
-
-    if (response.ok) {
-      localStorage.setItem('authToken', data.token);
-      errorMessage.textContent = '';
-      showUserRole(data.user_role);
-    } else {
-      errorMessage.textContent = data.message || 'Login failed';
-    }
-  } catch (error) {
-    errorMessage.textContent = 'Connection error. Please try again.';
-    console.error('Login error:', error);
+    return backendIP;
   }
-});
+
+  // Get the backend IP on page load
+  const backendIP = getBackendIP();
+
+  // Attach event listener for login
+  document.getElementById('login-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    if (!backendIP) return; // Stop if no IP is set
 
 
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    const errorMessage = document.getElementById('error-message');
 
+    try {
+      const response = await fetch(`http://${backendIP}:3000/login`, {
+        //const response = await fetch('http://'+backendIP+':3000/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password })
+      });
 
+      console.log("antes de obtener el data");
+      const data = await response.json();
 
-    // display por roles, EJEMPLO
-    function showUserRole(role) {
-      document.querySelectorAll('.content-section').forEach(section => { section.style.display = 'none'; });
+      console.log("despues de obtener el data");
+      console.log("", data);
 
-      switch (parseInt(role)) {
-        case ROLES.SUPER_ADMIN:
-          document.getElementById('super-admin-content').style.display = 'block';
-          break;
-        case ROLES.PROFESSOR:
-          document.getElementById('professor-content').style.display = 'block';
-          break;
-        case ROLES.MOSTRADOR:
-          document.getElementById('MOSTRADOR-content').style.display = 'block';
-          break;
-        case ROLES.ADMIN_STAFF:
-          document.getElementById('admin-staff-content').style.display = 'block';
-          break;
-        default:
-          document.getElementById('login-content').style.display = 'block';
-      }
-    }
-
-
-
-
-    
-    // 
-    window.addEventListener('load', () => {
-
-
-      const token = localStorage.getItem('authToken');
-      if (token) {
-        try {
-          const payload = JSON.parse(atob(token.split('.')[1]));
-          showUserRole(payload.user_role);
-        } catch (error) {
-          localStorage.removeItem('authToken');
-          showUserRole(null);
-        }
+      if (response.ok) {
+        localStorage.setItem('authToken', data.token);
+        errorMessage.textContent = '';
+        showUserRole(data.user_role);
       } else {
+        errorMessage.textContent = data.message || 'Login failed';
+      }
+    } catch (error) {
+      errorMessage.textContent = 'Connection error. Please try again.';
+      console.error('Login error:', error);
+    }
+  });
+
+
+
+
+
+  // display por roles, EJEMPLO
+  function showUserRole(role) {
+    document.querySelectorAll('.content-section').forEach(section => { section.style.display = 'none'; });
+
+    switch (parseInt(role)) {
+      case ROLES.SUPER_ADMIN:
+        document.getElementById('super-admin-content').style.display = 'block';
+        break;
+      case ROLES.PROFESSOR:
+        document.getElementById('professor-content').style.display = 'block';
+        break;
+      case ROLES.MOSTRADOR:
+        document.getElementById('MOSTRADOR-content').style.display = 'block';
+        break;
+      case ROLES.ADMIN_STAFF:
+        document.getElementById('admin-staff-content').style.display = 'block';
+        break;
+      default:
+        document.getElementById('login-content').style.display = 'block';
+    }
+  }
+
+
+
+
+
+  // 
+  window.addEventListener('load', () => {
+
+
+    const token = localStorage.getItem('authToken');
+    if (token) {
+      try {
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        showUserRole(payload.user_role);
+      } catch (error) {
+        localStorage.removeItem('authToken');
         showUserRole(null);
       }
-      console.log("aaaaaaaaaaa");
-    });
+    } else {
+      showUserRole(null);
+    }
+    console.log("aaaaaaaaaaa");
+  });
 
 
 
-    ///////////////////////////////////////////////////////       MOSTRADOR       ////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////       MOSTRADOR       ////////////////////////////////////////////////////////////////////////////////
 
-    /////////////////       BUSQUEDA OBJETOS       ////////////////////////////////////////////
-    async function loadItems() {
-      const token = localStorage.getItem("authToken");
-      const response = await fetch("http://'+ backendIP +':3000/MOSTRADOR/buscar-objetos/", { headers: { "Authorization": `Bearer ${token}` } });
-      console.log("Token:", localStorage.getItem("authToken"));
+  /////////////////       BUSQUEDA OBJETOS       ////////////////////////////////////////////
+  async function loadItems() {
+    const token = localStorage.getItem("authToken");
+    const response = await fetch(`http://${backendIP}:3000/MOSTRADOR/buscar-objetos/`, { headers: { "Authorization": `Bearer ${token}` } });
+    console.log("Token:", localStorage.getItem("authToken"));
 
-      if (!response.ok) {
-        console.error("Error al obtener el producto");
-        return;
-      }
+    if (!response.ok) {
+      console.error("Error al obtener el producto");
+      return;
+    }
 
-      const subjects = await response.json();
-      const tbody = document.getElementById("subjects-table");
-      tbody.innerHTML = "";
+    const subjects = await response.json();
+    const tbody = document.getElementById("subjects-table");
+    tbody.innerHTML = "";
 
-      subjects.forEach(subject => {
-        const row = `<tr>
+    subjects.forEach(subject => {
+      const row = `<tr>
         <td>${subject.nombre}</td>
         <td>${subject.marca}</td>
         <td>${subject.precio}</td>
+        <td>${subject.cantidad}</td>
     </tr>`;
-        tbody.innerHTML += row;
-      });
-    }
-
-
-/////////////////       VENTAS       ////////////////////////////////////////////
-
-function submitSale() {
-  const token = localStorage.getItem("authToken"); 
-  const attendanceCode = document.getElementById("attendance-code").value.trim();
-  
-  console.log("Attendance Code (Front):", attendanceCode); // Debugging
-
-  if (!attendanceCode) {
-    alert("Por favor, ingresa un código de asistencia.");
-    return;
+      tbody.innerHTML += row;
+    });
   }
 
-  fetch("http://'+ backendIP +':3000/MOSTRADOR/registro-venta/", {
-    method: "POST",
-    headers: { 
-      "Authorization": `Bearer ${token}`,
-      "Content-Type": "application/json" 
-    },
-    body: JSON.stringify({ codigo_asistencia: attendanceCode })
-  })
-  .then(response => response.json())
-  .then(data => {
-    if (data.success) {
-      alert("Venta registrada exitosamente.");
-    } else {
-      alert("Error al registrar venta: " + data.message);
+
+  /////////////////       VENTAS       ////////////////////////////////////////////
+
+  function submitSale() {
+    const token = localStorage.getItem("authToken");
+    const attendanceCode = document.getElementById("attendance-code").value.trim();
+
+    console.log("Attendance Code (Front):", attendanceCode); // Debugging
+
+    if (!attendanceCode) {
+      alert("Por favor, ingresa un código de asistencia.");
+      return;
     }
-  })
-  .catch(error => {
-    console.log("Error:", error);
-    alert("Error al conectar con el servidor.");
-  });
-}
+
+    fetch("http://'+ backendIP +':3000/MOSTRADOR/registro-venta/", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ codigo_asistencia: attendanceCode })
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          alert("Venta registrada exitosamente.");
+        } else {
+          alert("Error al registrar venta: " + data.message);
+        }
+      })
+      .catch(error => {
+        console.log("Error:", error);
+        alert("Error al conectar con el servidor.");
+      });
+  }
 
 
-  </script>
+</script>
 </body>
 
 </html>
