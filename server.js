@@ -65,7 +65,7 @@ app.post('/login', (req, res) => {
 
   console.log(username,"                  ",password);
 
-  db.query('SELECT USUARIOS.ID_USR,USUARIOS_DETAIL.NOMBRE,USUARIOS.ROLEE,USUARIOS.MATRICULA  FROM USUARIOS JOIN USUARIOS_DETAIL ON USUARIOS.ID_USR=USUARIOS_DETAIL.ID_USR WHERE USUARIOS.ID_USR = ?; ', [username], (err, result) => {
+  db.query('SELECT USUARIOS_DETAIL.NOMBRE, USUARIOS.PASS, USUARIOS.ID_USR, USUARIOS.ROLEE FROM USUARIOS  JOIN USUARIOS_DETAIL ON USUARIOS.ID_USR=USUARIOS_DETAIL.ID_USR WHERE USUARIOS.ID_USR = ?; ', [username], (err, result) => {
     if (err) return res.status(500).json({ message: 'Database error' });
 
     console.log(result);
@@ -78,10 +78,10 @@ app.post('/login', (req, res) => {
     console.log("errores en la autenticacion");
     const user = result[0];
     const token = jwt.sign({
-        user_id: user.ID_USR,
-        user_name: user.NOMBRE,
-        user_role: user.ROLEE,
-        user_matricula: user.MATRICULA
+      user_id: user.id_user,
+      user_name: user.user_name,
+      user_role: user.user_role,
+       user_matricula: user.id_user
       },
       'aVeryStrongSecretKeyHere',
       { expiresIn: '1h' }
