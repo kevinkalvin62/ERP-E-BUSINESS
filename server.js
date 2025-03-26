@@ -75,10 +75,10 @@ app.post('/login', (req, res) => {
     console.log("errores en la autenticacion");
     const user = result[0];
     const token = jwt.sign({
-        user_id: user.id_user,
-        user_name: user.user_name,
-        user_role: user.user_role,
-        user_matricula: user.matricula
+        user_id: user.ID_USR,
+        user_name: user.NOMBRE,
+        user_role: user.ROLEE,
+        user_matricula: user.MATRICULA
       },
       'aVeryStrongSecretKeyHere',
       { expiresIn: '1h' }
