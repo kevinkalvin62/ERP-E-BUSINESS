@@ -13,9 +13,9 @@ app.use(bodyParser.json());
 
 /*AQUI VAN LOS DETALLES DE SUS MAQUINAS LOCALES,NO MODIFICAR NADA*/
 const db = mysql.createConnection({
-  host: '192.168.18.24',
+  host: '127.0.0.1',
   user: 'node_user_erp',
-  password: 'Zapatitoblanco123',
+  password: 'Prueba123*',
   database: 'ERPBUSINESS',
 });
   
