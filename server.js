@@ -19,6 +19,10 @@ const db = mysql.createConnection({
   database: 'ERPBUSINESS',
 });
   
+app.listen(3000, '0.0.0.0', () => {
+  console.log('Server running on port 3000');
+});
+
 //asegurandome que los cambios si sirven y no solo es codigo al azar asi alav
 
 
