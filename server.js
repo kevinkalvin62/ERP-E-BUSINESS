@@ -65,7 +65,7 @@ app.post('/login', (req, res) => {
 
   console.log(username,"                  ",password);
 
-  db.query('SELECT USUARIOS_DETAIL.NOMBRE, USUARIOS.PASS, USUARIOS.ID_USR, USUARIOS.ROLEE FROM USUARIOS  JOIN USUARIOS_DETAIL ON USUARIOS.ID_USR=USUARIOS_DETAIL.ID_USR WHERE USUARIOS.ID_USR = ?; ', [username], (err, result) => {
+  db.query('SELECT USUARIOS.ID_USR, USUARIOS.PASS,USUARIOS_DETAIL.NOMBRE , USUARIOS.ROLEE FROM USUARIOS  JOIN USUARIOS_DETAIL ON USUARIOS.ID_USR=USUARIOS_DETAIL.ID_USR WHERE USUARIOS.ID_USR = ?; ', [username], (err, result) => {
     if (err) return res.status(500).json({ message: 'Database error' });
 
     console.log(result);
