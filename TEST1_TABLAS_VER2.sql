@@ -1,11 +1,13 @@
+--SE HACE A MANO ANTES DE SEGUIR
 CREATE DATABASE IF NOT EXISTS ERPBUSINESS;
-USE ERPBUSINESS;
 
-CREATE USER 'node_user_erp'@'%' IDENTIFIED BY 'Zapatitoblaco123';
-CREATE USER 'node_user_erp'@'localhost' IDENTIFIED BY 'Zapatitoblaco123';
+CREATE USER 'node_user_erp'@'%' IDENTIFIED BY 'Prueba123*';
+CREATE USER 'node_user_erp'@'localhost' IDENTIFIED BY 'Prueba123';
 GRANT ALL PRIVILEGES ON `ERPBUSINESS`.* TO 'node_user_erp'@'%';
 GRANT ALL PRIVILEGES ON `ERPBUSINESS`.* TO 'node_user_erp'@'localhost';
 FLUSH PRIVILEGES;
+
+USE ERPBUSINESS;
 
 -- Crear tabla de Alumnos
 CREATE TABLE IF NOT EXISTS USUARIOS (
