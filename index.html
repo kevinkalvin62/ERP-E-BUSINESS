@@ -182,127 +182,82 @@
 
 
 
+
+  <!-- Panel MOSTRADOR-->
   <div id="MOSTRADOR-content" class="content-section">
-    <div class="row">
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div>
-          <button class="btn btn-secundary d-md-none" type="button" data-bs-toggle="offcanvas"
-            data-bs-target="#mobileMenu">
-            ☰
-          </button>
-        </div>
-
-        <div class="container">
-          <a class="navbar-brand" href="/Index">
-            <img src="https://intbarcode.com/wp-content/uploads/2023/04/ERP-generic.png" style=" height: 80px" />
-          </a>
-
-          <h2 style="margin-left:40px; margin-right:40px"><strong>Sistema de ERP-BUSINESS</strong></h2>
-
-          <div id="navbarSupportedContent-4">
-            <ul class="nav navbar-nav ml-auto">
-              <li class="nav-item dropdown align-content-center">
-                <a class=" fas fa-user nav-link " aria-haspopup="true" aria-expanded="false">
-                  <i id="user_avalaible" class="dropdown-toggle text-right"></i><br />
-                  <strong>USER</strong>
-                </a>
-              </li>
-              <li>
-                <button class="logout-button" onclick="handleLogout()">Cerrar sesion</button>
-              </li>
-            </ul>
-          </div>
-        </div>  
-      </nav>
+    <button class="logout-button" onclick="handleLogout()">Cerrar sesion</button>
+    <h2>Panel de MOSTRADOR</h2>
+    <div class="nav-tabs">
+      <div class="nav-tab active" onclick="switchTab('search-products', this)">BUSCAR PRODUCTOS</div>
+      <div class="nav-tab" onclick="switchTab('register-sale', this)">REGISTRAR VENTA</div>
+      <div class="nav-tab" onclick="switchTab('register-refund', this)">REGISTRAR DEVOLUCION</div>
+      <div class="nav-tab" onclick="switchTab('payments', this)">GENERAR CORTE DEL DIA</div>
     </div>
 
-    <div class="d-flex">
-      <nav class="bg-dark text-white p-3 vh-100 d-none d-md-block" style="width: 250px;">
-        <h4>ERPSYSTEM</h4>
-        <ul class="nav flex-column">
-          <li class="nav-tab active" onclick="switchTab('search-products', this)">BUSCAR PRODUCTOS</li>
-          <li class="nav-tab" onclick="switchTab('register-sale', this)">REGISTRAR VENTA</li>
-          <li class="nav-tab" onclick="switchTab('register-refund', this)">REGISTRAR DEVOLUCION</li>
-          <li class="nav-tab" onclick="switchTab('payments', this)">GENERAR CORTE DEL DIA</li>
-        </ul>
-      </nav>
+    <div class="flex-grow-1 p-3">
+      <div id="search-products" class="tab-content active col-md-12">
+        <h3>BUSCAR PRODUCTOS </h3>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Marca
+              <th>Precio</th>
+              <th>Cantidad</th>
+            </tr>
+          </thead>
+          <tbody id="subjects-table">
+          </tbody>
+        </table>
+      </div>
 
-      <!-- Panel MOSTRADOR 
-          <div id="MOSTRADOR-content" class="content-section">
-              <button class="logout-button" onclick="handleLogout()">Cerrar sesion</button>
-              <h2>Panel de MOSTRADOR</h2>
-            <div class="nav-tabs">
-              <div class="nav-tab active" onclick="switchTab('search-products', this)">BUSCAR PRODUCTOS</div>
-            <div class="nav-tab" onclick="switchTab('register-sale', this)">REGISTRAR VENTA</div>
-            <div class="nav-tab" onclick="switchTab('register-refund', this)">REGISTRAR DEVOLUCION</div>
-            <div class="nav-tab" onclick="switchTab('payments', this)">GENERAR CORTE DEL DIA</div>
-          </div>-->
+      <div id="register-sale" class="tab-content col-md-12">
+        <h3>VENTAS</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Marca</th>
+              <th>Precio</th>
+              <th>Cantidad</th>
+            </tr>
+          </thead>
+          <tbody id="register-sale-table">
+          </tbody>
+        </table>
+      </div>
 
-      <div class="flex-grow-1 p-3">
-        <div id="search-products" class="tab-content active col-md-12">
-          <h3>BUSCAR PRODUCTOS </h3>
-          <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Marca
-                <th>Precio</th>
-                <th>Cantidad</th>
-              </tr>
-            </thead>
-            <tbody id="subjects-table">
-            </tbody>
-          </table>
-        </div>
+      <div id="register-refund" class="tab-content col-md-12">
+        <h3>DEVOLUCION</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Cantidad</th>
+              <th>Precio</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody id="register-refund-table">
+          </tbody>
+        </table>
+      </div>
 
-        <div id="register-sale" class="tab-content col-md-12">
-          <h3>VENTAS</h3>
-          <table>
-            <thead>
-              <tr>
-                <th>Nombre</th>
-                <th>Marca</th>
-                <th>Precio</th>
-                <th>Cantidad</th>
-              </tr>
-            </thead>
-            <tbody id="register-sale-table">
-            </tbody>
-          </table>
-        </div>
-
-        <div id="register-refund" class="tab-content col-md-12">
-          <h3>DEVOLUCION</h3>
-          <table>
-            <thead>
-              <tr>
-                <th>Nombre</th>
-                <th>Cantidad</th>
-                <th>Precio</th>
-                <th>Total</th>
-              </tr>
-            </thead>
-            <tbody id="register-refund-table">
-            </tbody>
-          </table>
-        </div>
-
-        <div id="payments" class="tab-content col-md-12">
-          <h3>CORTE DEL DIA</h3>
-          <table>
-            <thead>
-              <tr>
-                <th>Nombre</th>
-                <th>Precio</th>
-                <th>Cantidad</th>
-                <th>Total</th>
-              </tr>
-            </thead>
-            <tbody id="payments-table">
-            </tbody>
-          </table>
-        </div>
+      <div id="payments" class="tab-content col-md-12">
+        <h3>CORTE DEL DIA</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Precio</th>
+              <th>Cantidad</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody id="payments-table">
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
