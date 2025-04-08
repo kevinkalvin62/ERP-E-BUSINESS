@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="shortcut icon" href="https://intbarcode.com/wp-content/uploads/2023/04/ERP-generic.png" type="image/png">
 
   <style>
     body {
@@ -18,12 +19,16 @@
     }
 
     .content-section {
+      min-width: 100%;
+      min-height: 100%;
       display: none;
-      padding: 20px;
-      border: 1px solid #ddd;
       border-radius: 5px;
-      margin-top: 20px;
       justify-content: center;
+      padding: 10px;
+    }
+    .menu{
+      position: fixed;
+      height: 100vh;
     }
 
     .nav-tabs {
@@ -173,32 +178,30 @@
             </button>
           </div>
 
-          <div class="container">
+          <div class="container col-md-2">
             <a class="navbar-brand" href="/Index">
               <img src="https://intbarcode.com/wp-content/uploads/2023/04/ERP-generic.png" style=" height: 80px" />
             </a>
-
-            <div class="col-md-6">
-              <h2 style="margin-left:40px; margin-right:40px">Sistema de ERP-BUSINESS </h2>
-            </div>
-            <div id="navbarSupportedContent-4">
-              <ul class="nav navbar-nav ml-auto">
-                <li class="nav-item dropdown align-content-center">
-                  <a class=" fas fa-user nav-link " aria-haspopup="true" aria-expanded="false">
-                    <i class="dropdown-toggle text-right"></i><br />
-                    <strong>USUARIO ACTUAL</strong>
-                  </a>
-                </li>
-                <li>
-                  <button class="logout-button" onclick="handleLogout()">Cerrar sesion</button>
-                </li>
-              </ul>
-            </div>
           </div>
+          <div class="col-md-6">
+            <h2 style="margin-left:40px; margin-right:40px">Sistema de ERP-BUSINESS </h2>
+          </div>
+          <div id="navbarSupportedContent-4" class="col-md-3">
+            <ul class="nav navbar-nav ml-auto">
+              <li class="nav-item dropdown align-content-center">
+                <a class=" fas fa-user nav-link " aria-haspopup="true" aria-expanded="false">
+                  <i id="user_avalaible" class="dropdown-toggle text-right"></i><br />
+                  <strong></strong>
+                </a>
+              </li>
+              <li>
+                <button class="logout-button" onclick="handleLogout()">Cerrar sesion</button>
+              </li>
+            </ul>
         </nav>
       </div>
 
-      <div class="d-flex">
+      <div class="d-flex menu">
         <nav class="bg-dark text-white p-3 vh-100 d-none d-md-block" style="width: 250px;">
           <h4>ERPSYSTEM</h4>
           <ul class="nav flex-column">
@@ -221,7 +224,7 @@
           </div>-->
 
         <div class="flex-grow-1 p-3">
-          <div id="search-products" class="tab-content active">
+          <div id="search-products" class="tab-content active col-md-12">
             <h3>BUSCAR PRODUCTOS </h3>
             <table>
               <thead>
@@ -229,9 +232,8 @@
                   <th>ID</th>
                   <th>Nombre</th>
                   <th>Marca
-                </tr>
-                <th>Precio</th>
-                <th>Cantidad</th>
+                  <th>Precio</th>
+                  <th>Cantidad</th>
                 </tr>
               </thead>
               <tbody id="subjects-table">
@@ -239,7 +241,7 @@
             </table>
           </div>
 
-          <div id="register-sale" class="tab-content">
+          <div id="register-sale" class="tab-content col-md-12">
             <h3>VENTAS</h3>
             <table>
               <thead>
@@ -255,7 +257,7 @@
             </table>
           </div>
 
-          <div id="register-refund" class="tab-content">
+          <div id="register-refund" class="tab-content col-md-12">
             <h3>DEVOLUCION</h3>
             <table>
               <thead>
@@ -271,7 +273,7 @@
             </table>
           </div>
 
-          <div id="payments" class="tab-content">
+          <div id="payments" class="tab-content col-md-12">
             <h3>CORTE DEL DIA</h3>
             <table>
               <thead>
@@ -290,13 +292,10 @@
       </div>
     </div>
   </div>
-  <button onclick="setBackendIP()">REGISTER IP</button>
+  <!--<button onclick="setBackendIP()">REGISTER IP</button>-->
 </body>
 
 <script>
-
-
-
   // Roles
   const ROLES = {
     MOSTRADOR: 1,
@@ -304,15 +303,17 @@
     ADMIN_STAFF: 3,
     SUPER_ADMIN: 99
   };
-  
+
   //Obtnere User activo
+  const usuario = document.getElementById('user_avalaible');
   document.querySelector('form')
-  .addEventListener('submit', e =>{
+    .addEventListener('submit', e => {
       e.preventDefault()
       const data = Object.fromEntries(
         new FormData(e.target)
       )
-      console.log(JSON.stringify(data))
+      usuario = JSON.stringify(data.username);
+      console.log(JSON.stringify(data.username))
     });
 
   // cambia paginas
@@ -460,10 +461,12 @@
 
   ///////////////////////////////////////////////////////       MOSTRADOR       ////////////////////////////////////////////////////////////////////////////////
 
-  /////////////////       BUSQUEDA OBJETOS       ////////////////////////////////////////////
+  /////////////////       BUSQUEDA PRODUCTOS       ////////////////////////////////////////////
   async function loadItems() {
     const token = localStorage.getItem("authToken");
-    const response = await fetch(`http://${backendIP}:3000/MOSTRADOR/buscar-objetos/`, { headers: { "Authorization": `Bearer ${token}` } });
+    const response = await fetch(`http://${backendIP}:3000/MOSTRADOR/buscar-objetos/`, {
+      headers: { "Authorization": `Bearer ${token}` }
+    });
     console.log("Token:", localStorage.getItem("authToken"));
 
     if (!response.ok) {
@@ -472,15 +475,16 @@
     }
 
     const subjects = await response.json();
-    const tbody = document.getElementById("subjects-table");
+    const tbody = document.getElementById("search-products");
     tbody.innerHTML = "";
 
     subjects.forEach(subject => {
       const row = `<tr>
-        <td>${subject.nombre}</td>
-        <td>${subject.marca}</td>
-        <td>${subject.precio}</td>
-        <td>${subject.cantidad}</td>
+        <td>${subject.ID_PROD}</td>
+        <td>${subject.NOMBRE}</td>
+        <td>${subject.MARCA}</td>
+        <td>${subject.PRECIO}</td>
+        <td>${subject.CANTIDAD}</td>
     </tr>`;
       tbody.innerHTML += row;
     });

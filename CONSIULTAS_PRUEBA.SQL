@@ -14,3 +14,13 @@ SELECT * FROM USUARIOS WHERE user_name = ?
         user_name: user.user_name,
         user_role: user.user_role,
         user_matricula: user.id_user
+
+/*CONSULTA PARA PRODUCTOS*/
+SELECT PRODUCTOS.ID_PROD, 
+        PRODUCTOS.NOMBRE, 
+        PRODUCTOS.MARCA, 
+        PRECIOS.PRECIO, 
+        VENTAS.CANTIDAD 
+FROM PRODUCTOS 
+JOIN PRECIOS ON PRODUCTOS.ID_PROD = PRECIOS.ID_PROD 
+JOIN VENTAS ON PRODUCTOS.ID_PROD = VENTAS.ID_PROD;

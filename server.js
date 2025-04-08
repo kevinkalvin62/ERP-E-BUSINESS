@@ -98,7 +98,7 @@ app.post('/login', (req, res) => {
 
 app.get('/MOSTRADOR/buscar-objetos/', async (req, res) => {
   try {
-      const [rows] = await db.query('SELECT * FROM PRODUCTOS');
+      const [rows] = await db.query('SELECT PRODUCTOS.ID_PROD, PRODUCTOS.NOMBRE, PRODUCTOS.MARCA, PRECIOS.PRECIO, VENTAS.CANTIDAD FROM PRODUCTOS JOIN PRECIOS ON PRODUCTOS.ID_PROD = PRECIOS.ID_PROD JOIN VENTAS ON PRODUCTOS.ID_PROD = VENTAS.ID_PROD;');
       res.json(rows);
   } catch (error) {
       console.error('Error al obtener registros:', error);
